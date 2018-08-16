@@ -1,0 +1,25 @@
+.tripimage{
+	max-width: 250px;
+	max-height: 250px;
+}
+
+.mybooking{
+	border:1px solid #f1f1f1;
+	margin-bottom: 10px;
+	padding: 15px;
+	background-color: #fcfcfc;
+	border-radius: 6px;
+}
+
+.tripname{
+	color: #333;
+}
+
+@media and screen (max-width: 600px) { 
+
+.tripimage{
+	width: 100%;
+}
+
+
+}

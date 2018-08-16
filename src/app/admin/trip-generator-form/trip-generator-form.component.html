@@ -1,0 +1,213 @@
+<div class="row">
+
+	<div class="col">
+		<form #f="ngForm" (ngSubmit)="createTrip(f.value)">
+			<div class="form-group">
+				<label for="tripname">Tour name</label>
+				<input #tripname="ngModel" [(ngModel)]="trip.tripname" name="tripname" type="text" id="tripname" class="form-control" required />
+				<div class="alert alert-danger" *ngIf="tripname.touched && tripname.invalid">
+					Name required.
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="description">Tour description</label>
+				<textarea #description="ngModel"  [(ngModel)]="trip.description" name="description" id="description" cols="30" rows="10" class="form-control" required></textarea>
+				<div class="alert alert-danger" *ngIf="description.touched && description.invalid">
+					Description required.
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col">
+					<label for="tripstartdate">
+					Tour start date (Tour shows up on search results from this date)</label>
+					<input type="date" data-date-inline-picker="true" #tripstartdate="ngModel" [(ngModel)]="trip.tripstartdate" name="tripstartdate" id="tripstartdate" required class="form-control">
+					<!-- <p-calendar 
+						[(ngModel)]="value" [inline]="true" 
+						[ngModelOptions]="{standalone: true}"
+					>
+					</p-calendar> -->
+					<div class="alert alert-danger" *ngIf="tripstartdate.touched && tripstartdate.invalid">
+						<div *ngIf="tripstartdate.errors.required">Start date is required</div>
+					</div>
+				</div>
+
+				<div class="form-group col">
+					<label for="tripenddate">Tour expiry date (leave it empty if it never expires)</label>
+					<input type="date" #tripenddate="ngModel" [(ngModel)]="trip.tripenddate" name="tripenddate" id="tripenddate"  class="form-control">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col">
+					<label for="tripstarttime">Tour start time</label>
+					<input type="time" #tripstarttime="ngModel" [(ngModel)]="trip.tripstarttime" id="tripstarttime" name="tripstarttime" required class="form-control">
+					<div class="alert alert-danger" *ngIf="tripstarttime.touched && tripstarttime.invalid">
+						<div *ngIf="tripstarttime.errors.required">Start time is required</div>
+					</div>
+				</div>
+				<div class="form-group col">
+					<label for="tripendtime">Tour end time</label>
+					<input type="time" #tripendtime="ngModel" [(ngModel)]="trip.tripendtime" id="tripendtime" name="tripendtime" required class="form-control">
+					<div class="alert alert-danger" *ngIf="tripendtime.touched && tripendtime.invalid">
+						<div *ngIf="tripendtime.errors.required">End time is required</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col">
+					<label for="minmembers">Min members required</label>
+					<input #minmembers="ngModel" [(ngModel)]="trip.minmembers" name="minmembers" id="minmembers" type="number" class="form-control" required [min]="1" value="1" placeholder="1">
+					<div class="alert alert-danger" *ngIf="minmembers.touched && minmembers.invalid">
+						<div *ngIf="minmembers.errors.required">Minimum members required.</div>
+						<div *ngIf="minmembers.errors.min">Should be at least 1.</div>
+					</div>
+				</div>
+
+				<div class="form-group col">
+					<label for="maxmembers">Max members allowed</label>
+					<input #maxmembers="ngModel" [(ngModel)]="trip.maxmembers" name="maxmembers" id="maxmembers" type="number" class="form-control" required value="1" [min]="1" placeholder="1">
+					<div class="alert alert-danger" *ngIf="maxmembers.touched && maxmembers.invalid">
+						<div *ngIf="maxmembers.errors.required">Maximum members required.</div>
+						<div *ngIf="maxmembers.errors.min">Should be at least 1.</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="triplength">Length of tour (in hours)</label>
+				<div class="input-group mb-3">
+					<input type="number" [(ngModel)]="trip.triplength" #triplength="ngModel" id="triplength" name="triplength" min="0" class="form-control" required>
+					<div class="input-group-append">
+						<span class="input-group-text" id="basic-addon2">hours</span>
+					</div>
+				</div>
+				<div class="alert alert-danger" *ngIf="triplength.touched && triplength.invalid">
+					<div *ngIf="triplength.errors.required">Length of tour is required.</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="notice">Notice required for booking (in days. The tour booking closes this many days before the actual tour date)</label>
+				<div class="input-group mb-3">
+					<input type="number" [(ngModel)]="trip.notice" #notice="ngModel" id="notice" name="notice" min="0" class="form-control" required>
+					<div class="input-group-append">
+						<span class="input-group-text" id="basic-addon2">days</span>
+					</div>
+				</div>
+				<div class="alert alert-danger" *ngIf="notice.touched && notice.invalid">
+					<div *ngIf="notice.errors.required">Notice days is required.</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col">
+					<label for="costadult">Cost per adult</label>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="basic-addon1">$</span>
+						</div>
+						<input #costadult="ngModel" [(ngModel)]="trip.costadult" type="number" id="costadult" name="costadult" class="form-control" aria-label="Cost per adult" aria-describedby="cost per adult" [min]="0" required>
+					</div>
+					<div class="alert alert-danger" *ngIf="costadult.touched && costadult.invalid">
+						<div *ngIf="costadult.errors.required">Cost is required.</div>
+						<div *ngIf="costadult.errors.min">Cost cannot be negative.</div>
+					</div>
+				</div>
+
+				<div class="form-group col">
+					<label for="costchild">Cost per child (&lt; 12 years)</label>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="basic-addon1">$</span>
+						</div>
+						<input #costchild="ngModel" [(ngModel)]="trip.costchild" type="number" id="costchild" name="costchild" class="form-control" aria-label="Cost per child" aria-describedby="cost per child" [min]="0" required>
+					</div>
+					<div class="alert alert-danger" *ngIf="costchild.touched && costchild.invalid">
+						<div *ngIf="costchild.errors.required">Cost is required.</div>
+						<div *ngIf="costchild.errors.min">Cost cannot be negative.</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="meetingaddress">Address of meeting location</label>
+				<input #meetingaddress="ngModel" [(ngModel)]="trip.meetingaddress" name="meetingaddress" id="meetingaddress" type="text" class="form-control" required>
+				<div class="alert alert-danger" *ngIf="meetingaddress.touched && meetingaddress.invalid">
+					<div *ngIf="meetingaddress.errors.required">Meeting location address is required.</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="meetinglocation">Meeting location (copy past the google map location url)</label>
+				<input type="text" #meetinglocation="ngModel" [(ngModel)]="trip.meetinglocation" id="meetinglocation" name="meetinglocation" class="form-control" required>
+				<div class="alert alert-danger" *ngIf="meetinglocation.touched && meetinglocation.invalid">
+					<div *ngIf="meetinglocation.errors.required">Meeting location is required.</div>
+				</div>
+			</div>
+
+			
+			<div class="form-group">
+				<label for="transportation">Transportation included?</label>
+				<input type="radio" [(ngModel)]="trip.transportation" #transportation="ngModel" name="transportation" id="transportation" value="yes"> Yes
+				<input type="radio" [(ngModel)]="trip.transportation" #transportation="ngModel" name="transportation" id="transportation" value="no"> No
+			</div>
+
+			<div class="form-group">
+				<label for="tripimage">Tour image URL</label>
+				<input #tripimage="ngModel" [(ngModel)]="trip.tripimage" name="tripimage" type="text" id="tripimage" class="form-control" required />
+				<div class="alert alert-danger" *ngIf="tripimage.touched && tripimage.invalid">
+					<div *ngIf="tripimage.errors.required">Image required.</div>
+				</div>
+			</div>
+
+			<p>I agree to the <a href="">'Tattler Code of Conduct'</a>.</p>
+
+			<button class="btn btn-primary" [disabled]="f.invalid">Create Trip</button>
+		</form>
+	</div>
+
+	<div class="col preview-card">
+		<div class="card  sticky-top" style="width: 25rem;">
+			<img class="card-img-top" [src]="trip.tripimage" *ngIf="trip.tripimage">
+			<div class="card-body">
+				<h5 class="card-title">{{ trip.tripname }}</h5>
+				<p class="card-text">{{ trip.description }}</p>
+				<div class="row small">
+					<div class="col">
+						<strong>Adult:</strong> ${{ trip.costadult }}<br/>
+						<strong>Child:</strong> ${{ trip.costchild }}
+					</div>
+					<div class="col">
+						<strong>Max:</strong> {{ trip.maxmembers }}<br/>
+						<strong>Min:</strong> {{ trip.minmembers }}
+					</div>
+				</div>
+
+				<div class="row small">
+					<div class="col">
+						<strong>Tour starts:</strong> {{ trip.tripstarttime}}<br/>
+						<strong>Tour ends: </strong>{{ trip.tripendtime }}
+					</div>
+					<div class="col">
+						<strong>Tour start date: </strong>{{ trip.tripstartdate }}<br/>
+						<strong>Tour end date: </strong>{{ trip.tripenddate }}
+					</div>
+				</div>
+				<p>Transportation: {{trip.transportation}}</p>
+				<p>
+					Meeting point: {{trip.meetingaddress}} <br/>
+					<a [href]="trip.meetinglocation" target="_blank">Google maps</a>
+				</p>
+
+
+				<br/>
+				
+				<!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+			</div>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,139 @@
+<div class="d-flex flex-column">
+	<h5>{{ trip$.tripname }}</h5>
+	<p class="description">{{ trip$.description }}</p>
+	<p class="small">
+	Hosted by <a [routerLink]="['/profile', trip$.tattlerdetails.tattlerid]">{{ trip$.tattlerdetails.name }}</a> <img [src]="trip$.tattlerdetails.photoURL" class="profilephoto"> | Adult: C${{ trip$.costadult}}.00 | Child: C${{trip$.costchild}} | Tour length: {{ trip$.triplength }} | Min members: {{trip$.minmembers}} | Max members: {{trip$.maxmembers}}
+
+	</p>
+
+</div>
+
+<br/>
+
+<div class="d-flex flex-row p-2 justify-content-center flex-wrap">
+	<div class="col card-col">
+		<tripcard [trip]="trip$"></tripcard>
+	</div>
+	<div class="col-4">
+		
+		<div class="form-group">
+			<form #f="ngForm">
+				<div class="form-group">
+					<label for="adults">Choose no of adult(s):</label>
+					<input ngModel #adults="ngModel" id="adults" name="adults" type="number" min="1" [max]="trip$.maxmembers" class="form-control" value="0" required>
+					<div class="alert alert-danger" *ngIf="adults.touched && adults.invalid">
+						<div *ngIf="adults.errors.required">Please select at least one adult.</div>
+						<div *ngIf="adults.errors.min">Please select at least one adult.</div>
+						<div *ngIf="adults.errors.max">Maximum of only {{trip$.maxmembers}} allowed.</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="child">Choose no of child(ren): </label>
+					<input ngModel #child="ngModel" type="number" id="child" name="child" min="0" [max]="trip$.maxmembers" class="form-control" value="0">
+				</div>
+				<div class="form-group">
+					<label for="tripdate">Choose date:</label> 
+					<input ngModel #tripdate="ngModel" type="date" id="tripdate" name="tripdate" class="form-control" required>
+					<!-- <yoshimi-calendar></yoshimi-calendar>
+					<p-calendar 
+						[(ngModel)]="value" [inline]="true" 
+						[ngModelOptions]="{standalone: true}"
+					>
+					</p-calendar> -->
+
+					<div class="alert alert-danger" *ngIf="tripdate.touched && tripdate.invalid">
+						<div *ngIf="tripdate.errors.required">Please select a date for the trip.</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="col">
+		<h5>Your trip summary:</h5>
+		<hr>
+		<p>Adult(s) x {{ adults.value }} : ${{ (adults.value * trip$.costadult)|number }}.00<br/>
+		Chid(ren) x {{ child.value }} : ${{ (child.value * trip$.costchild)|number }}.00</p>
+		<p><strong>Total: $CAD {{ ((adults.value * trip$.costadult)*1 +  (child.value * trip$.costchild)*1)|number }}.00</strong></p>
+		<p>Date of trip: {{ tripdate.value | date }}</p>
+		<p>You will meet <a [routerLink]="['/profile', trip$.tattlerdetails.tattlerid]">{{ trip$.tattlerdetails.name }}</a> at  {{ trip$.meetingaddress }} <a [href]="trip$.meetinglocation" target="_blank">(Google maps)</a> by {{ trip$.tripstarttime }}.</p>
+
+		<button [disabled]="!f.valid" class="btn btn-primary" (click)="confirmbooking(trip$.$key, f.value)">Book</button> <small id="submithelpline" class="text-muted">
+      Please fill all required fields to book.
+    </small>
+	</div>
+</div>
+
+
+
+<!-- 
+
+<div class="row">
+	<div class="triphero">
+		<div class="herocontainer">
+			<img [src]="trip$.tripimage" />
+		</div>
+	</div>
+</div>
+
+<h1>{{ trip$.tripname }}</h1>
+<p>Hosted by <a [routerLink]="['/profile', trip$.tattlerdetails.tattlerid]">{{ trip$.tattlerdetails.name }}</a></p>
+<p>{{ trip$.description }}</p>
+
+<div class="row">
+	<div class="col">
+		<div>Adult : ${{trip$.costadult}}.00</div>
+		<div>Child : ${{trip$.costchild}}.00</div>
+	</div>
+	<div class="col">
+		<div>Max members accepted: {{ trip$.maxmembers }}</div>
+		<div>Min members required: {{ trip$.minmembers }}</div>
+	</div>
+</div>
+
+<br/>
+
+<div class="row">
+
+<div class="col">
+<div class="form-group">
+	<form #f="ngForm" (ngSubmit)="showItinerary(f.value)">
+		<div class="form-group">
+			<label for="adults">Choose no of adult(s):</label>
+			<input ngModel #adults="ngModel" id="adults" name="adults" type="number" min="1" [max]="trip$.maxmembers" class="form-control" value="0" required>
+			<div class="alert alert-danger" *ngIf="adults.touched && adults.invalid">
+				<div *ngIf="adults.errors.required">Please select at least one adult.</div>
+				<div *ngIf="adults.errors.min">Please select at least one adult.</div>
+				<div *ngIf="adults.errors.max">Maximum of only {{trip$.maxmembers}} allowed.</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="child">Choose no of child(ren): </label>
+			<input ngModel #child="ngModel" type="number" id="child" name="child" min="0" [max]="trip$.maxmembers" class="form-control" value="0">
+		</div>
+		<div class="form-group">
+			<label for="tripdate">Choose date:</label> 
+			<input ngModel #tripdate="ngModel" type="date" id="tripdate" name="tripdate" class="form-control" required>
+			<div class="alert alert-danger" *ngIf="tripdate.touched && tripdate.invalid">
+				<div *ngIf="tripdate.errors.required">Please select a date for the trip.</div>
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+
+<div class="col">
+	<h4>Your trip summary:</h4>
+	<p>Adult(s) x {{ adults.value }} : ${{ (adults.value * trip$.costadult)|number }}.00<br/>
+	Chid(ren) x {{ child.value }} : ${{ (child.value * trip$.costchild)|number }}.00</p>
+	<p><strong>Total: $CAD {{ ((adults.value * trip$.costadult)*1 +  (child.value * trip$.costchild)*1)|number }}.00</strong></p>
+	<p>Date of trip: {{ tripdate.value | date }}</p>
+	<p>You will meet <a [routerLink]="['/profile', trip$.tattlerdetails.tattlerid]">{{ trip$.tattlerdetails.name }}</a> at  {{ trip$.meetingaddress }} <a [href]="trip$.meetinglocation" target="_blank">(Google maps)</a> by {{ trip$.tripstarttime }}.</p>
+
+	<button class="btn btn-primary" (click)="confirmbooking(trip$.$key, f.value)">Book</button>
+ </div>	
+
+</div>
+
+
+
+ -->

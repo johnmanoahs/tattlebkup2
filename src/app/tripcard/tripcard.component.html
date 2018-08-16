@@ -1,0 +1,38 @@
+<!-- <div class="album py-5 bg-light">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-4 card-group" [trip]="trip"> -->
+					
+					<div class="card mb-4 box-shadow">
+						<a [routerLink]="['/trip', trip.tripname, trip.$key]">
+							<img class="card-img-top" [src]="trip.tripimage" [alt]="trip.tripname">
+						</a>
+						<div class="card-body">
+							<h5 class="card-title ctitle">
+								<a class="atitle" [routerLink]="['/trip', trip.tripname, trip.$key]">{{ trip.tripname }}</a>
+							</h5>
+							<div class="photocontainer">
+								<a [routerLink]="['/profile', trip.tattlerdetails.tattlerid]">
+									<img [src]="trip.tattlerdetails.photoURL" class="cardtattlerphoto"/>
+								</a>
+							</div>
+							<p class="card-text desc">Hosted by <a [routerLink]="['/profile', trip.tattlerdetails.tattlerid]">{{ trip.tattlerdetails.name }}</a></p>
+
+							<p class="description">{{ trip.description }}</p>
+							
+							<div class="d-flex justify-content-between align-items-center">
+								<div>C${{ trip.costadult }}.00</div>
+								<small class="text-muted">{{trip.triplength}} Hours</small>
+							</div>
+						</div>
+						<div class="card-footer">
+							<button *ngIf="showBook" [routerLink]="['/trip', trip.tripname, trip.$key]" class="btn btn-primary mr-auto">Book</button>
+						</div>
+					</div>
+
+			<!-- 	</div>
+
+			</div>
+		</div>
+	</div> -->

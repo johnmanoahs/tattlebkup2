@@ -1,0 +1,50 @@
+<!-- 
+<table class="table">
+	<thead>
+		<tr>
+			<td>Trip Details</td>
+			<td>Date</td>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let booking of mybookings$">
+			<td>{{ booking.trip.tripname}}</td>
+			<td>{{ booking.tripdate }} </td>
+			<td>
+				<button class="btn btn-primary">View</button>
+				<button class="btn btn-danger">Cancel</button>
+			</td>
+		</tr>
+	</tbody>
+</table> -->
+
+<div class="row mybooking" *ngFor="let booking of mybookings$">
+	<div class="col">
+		<img [src]="booking.trip.tripimage" class="tripimage">
+	</div>
+	<div class="col-6">
+		<h5 class="tripname"><a [routerLink]="['/trip', booking.trip.tripname, booking.tripid]">{{ booking.trip.tripname }}</a> </h5>
+		<p>Hosted by <a [routerLink]="['/profile', booking.trip.tattlerdetails.tattlerid]">{{ booking.trip.tattlerdetails.name }}</a></p>
+		<p class="small">{{ booking.trip.description }}</p>
+		<div class="row">
+			<div class="col">
+				<p class="small">Booked on <strong>{{ booking.datebooked | date : 'medium' }} </strong> <br/>
+					Meeting place: {{ booking.trip.meetingaddress }} <a [href]="booking.trip.meetinglocation">(Google Maps)</a>
+
+				</p>
+			</div>
+			<div class="col">
+				<p class="small">Adult(s): {{booking.adults }} <br/>Child(ren): {{booking.children}}<br/>
+				Total cost: ${{booking.grandtotal }}.00</p>
+			</div>
+		</div>
+
+	</div>
+	<div class="col">
+		<p>Status: {{ booking.status }}</p>		
+		<button class="btn btn-danger">Cancel trip</button>
+	</div>
+</div>
+
+

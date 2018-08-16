@@ -1,0 +1,124 @@
+<!-- 
+<form>
+	<div class="input-group mb-3">
+		<input #searchtrip="ngModel" ngModel name="searchtrip" id="searchtrip" type="text" class="form-control" placeholder="Search..." aria-label="Search for trips" aria-describedby="search for trips">
+		<div class="input-group-append">
+			<button class="btn btn-outline-secondary" type="button" (click)="searchTrips(searchtrip.value)">Search</button>
+		</div>
+	</div>
+</form>
+
+<div class="d-flex flex-row bd-highlight mb-3">
+	<div class="card" style="width: 18rem;" *ngFor="let trip of trips$ | async">
+		<a [routerLink]="['/trip/', trip.tripname, trip.$key]">
+			<img class="card-img-top" [src]="trip.tripimage" [alt]="trip.tripname">
+		</a>
+		<div class="card-body">
+			<h5 class="card-title">{{ trip.tripname }}</h5>
+			<span>Hosted by {{ (getUser(trip.uid)).name }}</span>
+			<div class="row">
+				<div class="col">
+					Adult: ${{ trip.costadult }}<br/>
+					Child: ${{ trip.costchild }}
+				</div>
+				<div class="col">
+					Max: {{ trip.maxmembers }}<br/>
+					Min: {{ trip.minmembers }}
+				</div>
+			</div>
+			<br/>
+
+			<p class="card-text">{{ trip.description }}</p>
+			
+		</div>
+	</div>
+</div>
+-->
+
+<main role="main">
+
+	<section class="jumbotron text-center">
+		<div class="container">
+			<h1 class="jumbotron-heading">tattle. <span class="ok">It's ok to gossip, sometimes. <a href="#">Know why</a></span></h1>
+			<p class="lead text-muted caption">"share and celebrate cultures openly and freely, and discover that <strong>we are not so different after all!"</strong></p>
+			
+
+			<div class="input-group mb-3">
+				<input #searchtrip="ngModel" ngModel name="searchtrip" id="searchtrip" type="text" (keydown)="search($event)" class="form-control" placeholder="Search for experiences here..." aria-label="Search for trips" aria-describedby="search for trips">
+				<!-- <div class="input-group-append">
+					<button class="btn btn-primary" type="button" (click)="searchTrips(searchtrip.value)">Let's Go!</button>
+				</div> -->
+				<div class="input-group-append">
+					<button class="btn btn-primary" type="button" (click)="search(searchtrip.value)">Let's Go!</button>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+<!-- 	<div class="album bg-light" [hidden]="!trips$">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 card-group" *ngFor="let trip of trips$ | async">
+					<tripcard [trip]="trip" [showBook]="true"></tripcard>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="album bg-light">
+		<div class="container">
+			<div class="row" [hidden]="!trips$">
+				<div class="col-md-4 card-group" *ngFor="let trip of trips$">
+					
+					<tripcard [trip]="trip" [showBook]="true"></tripcard>
+				</div>
+				<div *ngIf="trips$?.length < 1">
+  				<p>
+   					 No results found :(
+  				</p>
+  			</div>
+			</div>
+			<h6 class="featuredtrips">Featured Tours</h6>
+			<div class="row">
+				<div class="col-md-4 card-group" *ngFor="let trip of featuredTrips$ | async">
+					<tripcard [trip]="trip" [showBook]="true"></tripcard>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</main>
+
+		<!-- 	<div class="col-md-4 card-group" *ngFor="let trip of trips$ | async">
+					
+					<div class="card mb-4 box-shadow">
+						<a [routerLink]="['/trip', trip.tripname, trip.$key]">
+							<img class="card-img-top" [src]="trip.tripimage" [alt]="trip.tripname">
+						</a>
+						<div class="card-body">
+							<h5 class="card-title ctitle">
+								<a class="atitle" [routerLink]="['/trip', trip.tripname, trip.$key]">{{ trip.tripname }}</a>
+							</h5>
+							<div class="photocontainer">
+								<a [routerLink]="['/profile', trip.tattlerdetails.tattlerid]">
+									<img [src]="trip.tattlerdetails.photoURL" class="cardtattlerphoto"/>
+								</a>
+							</div>
+							<p class="card-text desc">Hosted by <a [routerLink]="['/profile', trip.tattlerdetails.tattlerid]">{{ trip.tattlerdetails.name }}</a></p>
+
+							<p class="description">{{ trip.description }}</p>
+							
+							<div class="d-flex justify-content-between align-items-center">
+								<div>C${{ trip.costadult }}.00</div>
+								<small class="text-muted">9 mins</small>
+							</div>
+						</div>
+						<div class="card-footer">
+							<button [routerLink]="['/trip', trip.tripname, trip.$key]" class="btn btn-primary mr-auto">Book</button>
+						</div>
+					</div>
+
+				</div>
+			-->

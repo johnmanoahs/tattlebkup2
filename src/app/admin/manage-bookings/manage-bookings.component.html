@@ -1,0 +1,47 @@
+<!-- <div *ngFor="let mybookings of mybookings$ | async">
+	{{ mybookings.trip.tripname }} {{ mybookings.status}}
+</div> -->
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Tour name</th>
+			<th>Date of Tour</th>
+			<th>Booking details</th>
+			<th>Status</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let mybookings of mybookings$ | async">
+			<td>
+				<h6>{{ mybookings.trip.tripname }}</h6>
+				<p>Trip starts at : {{ mybookings.trip.tripstarttime }} </p>
+			</td>
+			<td>{{ mybookings.tripdate | date : 'fullDate'}}</td>
+			<td>
+				<p><strong>Booked by: <a [routerLink]="['/profile', mybookings.bookerdetails.uid]">{{ mybookings.bookerdetails.name || 'N/A'}}</a></strong><br/>
+				<a href="mailto:{{mybookings.bookerdetails.email}}">{{ mybookings.bookerdetails.email || 'N/A' }}</a><br/>
+				Booked date: {{ mybookings.datebooked | date : 'fullDate'}} </p>
+				<p>
+				Adult(s): {{ mybookings.adults }} x C${{ mybookings.trip.costadult }}.00 = C${{ mybookings.adulttotal}}.00 <br/>
+				Child(ren): {{ mybookings.children || 0 }} x C${{ mybookings.trip.costchild }}.00 = C${{ mybookings.childtotal}}.00<br/>
+					<strong>Grand Total : C${{ mybookings.grandtotal }}.00</strong>
+					<br/>
+					Payment by {{ mybookings.paymentmode }}
+				</p>
+
+				
+			</td>
+			<td>
+				{{ mybookings.status }} 
+			</td>
+			<td>
+				
+				<button class="btn btn-danger" (click)="rejectbooking(mybookings.$key)">Cancel</button>
+
+				<button class="btn btn-primary" (click)="confirmbooking(mybookings.$key)">Confirm</button>
+			</td>
+		</tr>
+	</tbody>
+</table>

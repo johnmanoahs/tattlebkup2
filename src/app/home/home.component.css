@@ -1,0 +1,102 @@
+/*.card {
+	margin-right: 15px;
+	}*/
+
+	:root {
+		--jumbotron-padding-y: 3rem;
+	}
+
+	.ok{
+		font-size: 0.75rem;
+	}
+
+	.photocontainer{
+		position: relative;
+		top: -77px;
+		left: 83%;
+	}
+	
+	.featuredtrips{
+		color: #999;
+		font-weight: normal;
+		padding: 15px 0;
+	}
+
+	.album{
+		/*padding: 15px;*/
+		border-radius: 5px 5px 0;
+		margin-top: 40px;
+	}
+
+	.jumbotron-heading{
+		margin-top:35px;
+	}
+
+	.caption{
+		margin-bottom: 30px;
+	}
+
+	.card:hover {
+		box-shadow: 0 20px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	}
+
+	a.atitle{
+		color: #777;
+	}
+
+	a.atitle:hover{
+		text-decoration: none;
+	}
+
+	p.desc{
+		margin-top: -50px;
+	}
+
+	.description{
+		color: #aaa;
+	}
+	
+	.ctitle{
+		color: #777;
+	}
+	.cardtattlerphoto{
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+	}
+
+	.jumbotron {
+		padding-top: var(--jumbotron-padding-y);
+		padding-bottom: var(--jumbotron-padding-y);
+		margin-bottom: 0;
+		background-color: #fff;
+	}
+	@media (min-width: 768px) {
+		.jumbotron {
+			padding-top: calc(var(--jumbotron-padding-y) * 2);
+			padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+		}
+	}
+
+	.jumbotron p:last-child {
+		margin-bottom: 0;
+	}
+
+	.jumbotron-heading {
+		font-weight: 300;
+	}
+
+	.jumbotron .container {
+		max-width: 40rem;
+	}
+
+	footer {
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+	}
+
+	footer p {
+		margin-bottom: .25rem;
+	}
+
+	.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }

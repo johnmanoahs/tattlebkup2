@@ -1,0 +1,27 @@
+<p><a routerLink="/tattler/trips/new" class="btn btn-primary">Create New Trip</a></p>
+
+<div class="d-flex flex-row flex-wrap bd-highlight mb-3">
+	<div class="card" *ngFor="let trip of trips$ | async">
+		<img class="card-img-top" [src]="trip.tripimage" [alt]="trip.tripname">
+		<div class="card-body">
+			<h5 class="card-title">{{ trip.tripname }}</h5>
+
+			<div class="row">
+				<div class="col">
+					Adult: ${{ trip.costadult }}<br/>
+					Child: ${{ trip.costchild }}
+				</div>
+				<div class="col">
+					Max: {{ trip.maxmembers }}<br/>
+					Min: {{ trip.minmembers }}
+				</div>
+			</div>
+			<br/>
+
+			<p class="card-text">{{ trip.description }}</p>
+			
+			<button type="button" (click)="deleteTrip(trip.$key)" class="btn btn-danger">Delete</button>
+			<a [routerLink]="['/tattler/trips', trip.$key]" class="btn btn-primary">Edit</a>
+		</div>
+	</div>
+</div>

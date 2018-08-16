@@ -1,0 +1,156 @@
+<div  class="formcontainer d-flex flex-column flex-wrap align-items-center justify-content-center justify-content-md-center">
+	<div class="d-flex">
+	<form #f="ngForm" (ngSubmit)="createTattler(f.value)">
+
+		<div class="form-group">
+			<label for="address">Address</label>
+			<input #address="ngModel" [(ngModel)]="user$.details.address" name="address" type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+			<div class="alert alert-danger" *ngIf="address.touched && address.invalid">
+				<div *ngIf="address.errors.required">Address is required.</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="address2">Address 2</label>
+			<input #address2="ngModel" [(ngModel)]="user$.details.address2" name="address2" type="text" class="form-control" id="address2" placeholder="Apartment, studio, or floor">
+		</div>
+		<div class="form-row">
+			<div class="form-group col">
+				<label for="city">City</label>
+				<input #city="ngModel" [(ngModel)]="user$.details.city" name="city" required type="text" class="form-control" 
+				id="city">
+				<div class="alert alert-danger" *ngIf="city.touched && city.invalid">
+					<div *ngIf="city.errors.required">City is required.</div>
+				</div>
+			</div>
+			<div class="form-group col">
+				<label for="state">Province</label>
+				<select #state="ngModel" [(ngModel)]="user$.details.state" name="state" id="state" class="form-control" required>
+					<option value="British Columbia" selected>British Columbia</option>
+					<option value="Ontario">Ontario</option>
+					<option value="Alberta">Alberta</option>
+				</select>
+				<div class="alert alert-danger" *ngIf="state.touched && state.invalid">
+					<div *ngIf="state.errors.required">State is requied.</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col">
+				<label for="postcode">Postcode</label>
+				<input #postcode="ngModel" [(ngModel)]="user$.details.postcode" name="postcode" required type="text" class="form-control" id="postcode">
+				<div class="alert alert-danger" *ngIf="postcode.touched && postcode.invalid">
+					<div *ngIf="postcode.errors.required">Postcode is required.</div>
+				</div>
+			</div>
+			<div class="form-group col">
+				<label for="country">Country</label>
+				<select #country="ngModel" [(ngModel)]="user$.details.country" required name="country" id="country" class="form-control">
+					<option value="Canada" [selected]="user$.details.country">Canada</option>
+				</select>
+				<div class="alert alert-danger" *ngIf="country.touched && country.invalid">
+					<div *ngIf="country.errors.required">Country is required.</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="row">
+				<div class="col">
+					<label for="cellphone">Cellphone no</label>
+					<input #cellphone="ngModel" [(ngModel)]="user$.details.cellphone" name="cellphone" required type="tel" id="cellphone" class="form-control" />
+					<div class="alert alert-danger" *ngIf="cellphone.touched && cellphone.invalid">
+						<div *ngIf="cellphone.errors.required">Cellphone no is required.</div>
+					</div>
+				</div>
+				<div class="col">
+					<label for="altphone">Alternate phone no</label>
+					<input #altphone="ngModel" ngModel name="altphone" type="tel" id="altphone" class="form-control" />
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label for="bio">About me (50 to 300 words)</label>
+			<textarea #bio="ngModel" [(ngModel)]="user$.details.bio" name="bio" required class="form-control" id="bio" rows="3">	
+			</textarea>
+			<div class="alert alert-danger" *ngIf="bio.touched && bio.invalid">
+				<div *ngIf="bio.errors.required">Please write at least 50 words about you.</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="languagesspoken">Languages spoken:</label>
+			<select #languagesspoken="ngModel" [(ngModel)]="user$.details.languagesspoken" name="languagesspoken" required multiple 
+			class="form-control" id="languagesspoken" size="5">
+					<option 
+						*ngFor="let languagespoken of languagesspoken$ | async" 
+						[value]="languagespoken?.$value">
+						{{ languagespoken?.$value }}
+					</option>	
+			</select>
+			<div class="alert alert-danger" *ngIf="languagesspoken.touched && languagesspoken.invalid">
+				<div *ngIf="languagesspoken.errors.required">Please select at least one langugage.</div>
+			</div>
+		</div>	
+
+
+
+				<div class="form-group" id="cln">
+					<label for="culturalexperience">Cultural experience: <span class="small">(Select at least one)</span></label>
+					<div class="row">
+
+						<div class="col">					
+							<select #culturalexperience1="ngModel" 
+							[(ngModel)]="user$.details.culturalexperience1" name="culturalexperience1" required id="culturalexperience1" class="form-control">
+								<option *ngFor="let ce of culturalexperience$ | async" 
+										[value]="ce?.$value">
+										{{ce?.$value}}
+								</option>
+							</select>
+							<div class="alert alert-danger" *ngIf="culturalexperience1.touched && culturalexperience1.invalid">
+								<div *ngIf="culturalexperience1.errors.required">
+									Please select at least 1.
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<input #ceyears1="ngModel" [(ngModel)]="user$.details.ceyears1" name="ceyears1" required type="number" class="form-control" />
+							<div class="alert alert-danger" *ngIf="ceyears1.touched && ceyears1.invalid">
+								<div *ngIf="ceyears1.errors.required">Years is required.</div>
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col">		
+									<!-- [(ngModel)]="user$.details.culturalexperience2"  -->
+							<select #culturalexperience2="ngModel" 
+							ngModel
+							name="culturalexperience2" id="culturalexperience2" class="form-control">
+								<option *ngFor="let ce of culturalexperience$ | async" 
+										[value]="ce?.$value" >
+										{{ce?.$value}}
+								</option>
+							</select>
+						</div>
+						<!-- [(ngModel)]="user$.details.ceyears2"  -->
+						<div class="col">
+							<input #ceyears2="ngModel" 
+							ngModel
+							name="ceyears2" type="number" 
+							class="form-control" />
+						</div>
+					</div>
+				</div>
+
+	<button type="submit" [disabled]="!f.valid" class="btn btn-primary">Submit</button> <span class="small">(Please fill all required fields to submit)</span>
+</form>
+
+</div>
+</div>
+
+
+<!-- <div [hidden]="!isAdmin">
+		Looks like you are tattler already. You're on a roll, tattler!
+	</div> -->

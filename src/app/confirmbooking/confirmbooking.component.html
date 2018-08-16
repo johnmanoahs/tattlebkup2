@@ -1,0 +1,77 @@
+<h3>Your Itinerary</h3>
+
+<p><a [routerLink]="['/trip', trip.trip.tripname, trip.tripid]">{{ trip.trip.tripname }} </a> organized by 
+	<a [routerLink]="['/profile', trip.trip.tattlerdetails.tattlerid]">{{ trip.trip.tattlerdetails.name }} <img [src]="trip$.tattlerdetails.photoURL" class="profilephoto"> </a></p>
+
+	<div class="row">
+		<div class="col">
+			<tripcard [trip]="trip.trip"></tripcard>
+		</div>
+		<div class="col">
+			<h6>Booked trip details</h6>
+			<hr/>
+			<p>Trip date: {{ trip.tripdate | date }} at {{ trip.trip.tripstarttime }}</p>
+			<p>Adult(s): {{ trip.adults }} </p>
+			<p>Child(ren): {{ trip.children || 0 }}</p>
+			<p>Meeting place: {{ trip.trip.meetingaddress}} <a [href]="trip.trip.meetinglocation">(Google maps)</a></p>
+		</div>
+
+		<div class="col">
+			<h6>Costing</h6>
+			<hr/>
+			<p> {{ trip.adults }} Adult(s) x C${{trip$.costadult}}.00 = ${{ adulttotal }}.00 </p> 
+			<p> {{ trip.children || 0 }} Child(ren) x C${{trip$.costadult}}.00 = ${{ childtotal }}.00 </p>
+			<p> <strong>Total to pay : $CAD {{ grandtotal }}.00 </strong>
+
+				<form #f="ngForm">
+					<div class="form-group">
+						<div class="form-group">
+						<label for="paymentmode">Choose payment method:<span class="small"> (For PayPal, you will be redirected to the payment gateway)</span></label>
+						<select #paymentmode="ngModel" ngModel name="paymentmode" id="paymentmode" class="form-control" size="3" placeholder="Choose payment mode">
+							<option [ngValue]="'cash'" selected>Cash</option>
+							<option [ngValue]="'paypal'" >PayPal</option>
+						</select>
+						</div>
+						<!-- <div class="form-check">
+							<input #paymentmode1="ngModel" ngModel class="form-check-input" type="radio" name="paymentmode1" id="paymentmode1paymentmode1" value="option1" checked>
+							<label class="form-check-label" for="paymentmode1">
+								Cash
+							</label>
+						</div>
+
+						<div class="form-check">
+							<input #paymentmode1="ngModel" ngModel class="form-check-input" type="radio" name="paymentmode1" id="paymentmode1" value="option1">
+							<label class="form-check-label" for="paymentmode1">
+								PayPal<span class="small"> (You will be redirected to the payment gateway)</span>
+							</label>
+						</div> -->
+
+						<!-- <div class="form-check">
+							<input   [(ngModel)]="paymentmode" type="radio" id="paymentmode" name="paymentmode" [value]="cash" [checked]="paymentmode=='cash'"> 
+							<label for="paymentmode" class="form-check-label">
+								Cash
+							</label>  
+						</div>
+						<div class="form-check">
+							<input   [(ngModel)]="paymentmode"  type="radio" id="paymentmode" name="paymentmode" [value]="paypal" [checked]="paymentmode=='paypal'"> 
+							<label for="paymentmode"  class="form-check-label">
+								PayPal<span class="small"> (You will be redirected to the payment gateway)</span>
+							</label>
+						</div> -->
+					</div>
+					<div class="form-check">
+						<input type="checkbox" #t name="tandc" id="tandc" class="form-check-input" > 
+						<label for="tandc" class="form-check-label">
+							I agree to the <a href="#">terms and conditions</a>
+						</label>
+					</div>	
+					<br/>
+					<div class="form-group">
+						<button class="btn btn-primary" [disabled]="!t.checked" (click)="book(f.value)">Confirm Booking</button>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+
+

@@ -1,0 +1,40 @@
+
+<div class="d-flex flex-row flex-wrap">
+	<div class="p-2">
+		<img [src]="user$.details.photoURL || 'loading' " class="profilephoto"> 
+	</div>
+	<div class="p-2 col-10">
+		<h1 class="bd-title"> 
+
+			{{ user$?.details.name }}
+		</h1>
+		<p class="description">{{ user$?.details.bio || defaultDescription }}</p>
+	</div>
+	<!-- <div class="p-2 col-4">
+		<div>
+			<p>I speak : <ng-container *ngFor="let languagespoken of user$.details.languagesspoken">
+				{{ languagespoken }}
+			</ng-container></p>
+			<p>I have {{  }}{{ user$.details.cellphone }}</p>
+			<p>{{ user$.details.</p>
+		</div>
+	</div> -->
+</div>
+<br/>
+<div class="row">
+	<div class="col">
+		<h6 class="mytrips">My trips</h6>
+		<div class="album bg-light">
+			<div class="container">
+
+				<div class="row">
+					<div class="col-md-4 card-group" *ngFor="let trip of mytrips$">
+						<tripcard [trip]="trip" [showBook]="true"></tripcard>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+	</div>
+</div>
+
