@@ -6,6 +6,31 @@ body {
 	font-size: 0.9rem; 
 }
 
+.fc-basic-view .fc-body .fc-row{
+    min-height: 2em !important;
+    height: 2em !important;
+    max-height: 2em !important;
+}
+
+.fc-toolbar h2 {
+    margin: 0;
+    font-size:15px;
+}
+
+td.fc-day-top{
+	cursor: pointer;
+}
+
+td.fc-day-top:hover{
+	background: cyan
+}
+
+.fc-bgevent {
+	background-color: #555;
+	/*background-image: url('assets/x.png');
+	background-size: 100%;*/
+}
+
 @media (min-width: 1200px) {
 
 	.container {

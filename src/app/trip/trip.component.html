@@ -2,7 +2,7 @@
 	<h5>{{ trip$.tripname }}</h5>
 	<p class="description">{{ trip$.description }}</p>
 	<p class="small">
-	Hosted by <a [routerLink]="['/profile', trip$.tattlerdetails.tattlerid]">{{ trip$.tattlerdetails.name }}</a> <img [src]="trip$.tattlerdetails.photoURL" class="profilephoto"> | Adult: C${{ trip$.costadult}}.00 | Child: C${{trip$.costchild}} | Tour length: {{ trip$.triplength }} | Min members: {{trip$.minmembers}} | Max members: {{trip$.maxmembers}}
+		Hosted by <a [routerLink]="['/profile', trip$.tattlerdetails.tattlerid]">{{ trip$.tattlerdetails.name }}</a> <img [src]="trip$.tattlerdetails.photoURL" class="profilephoto"> | Adult: C${{ trip$.costadult}}.00 | Child: C${{trip$.costchild}} | Tour length: {{ trip$.triplength }} | Min members: {{trip$.minmembers}} | Max members: {{trip$.maxmembers}}
 
 	</p>
 
@@ -33,34 +33,46 @@
 				</div>
 				<div class="form-group">
 					<label for="tripdate">Choose date:</label> 
-					<input ngModel #tripdate="ngModel" type="date" id="tripdate" name="tripdate" class="form-control" required>
+					<br/>
+					<!-- <input ngModel #tripdate="ngModel" type="date" id="tripdate" name="tripdate" class="form-control" required> -->
 					<!-- <yoshimi-calendar></yoshimi-calendar>
 					<p-calendar 
 						[(ngModel)]="value" [inline]="true" 
 						[ngModelOptions]="{standalone: true}"
 					>
-					</p-calendar> -->
+				</p-calendar> -->
 
-					<div class="alert alert-danger" *ngIf="tripdate.touched && tripdate.invalid">
-						<div *ngIf="tripdate.errors.required">Please select a date for the trip.</div>
-					</div>
+				<div *ngIf="calendarOptions">
+					<ng-fullcalendar 
+					ngModel
+					name="ucCalendar"
+					id="ucCalendar"
+					#ucCalendar="ngModel"
+					[options]="calendarOptions"  
+					(dayClick)="dayClick($event.detail)">
+					</ng-fullcalendar>
 				</div>
-			</form>
-		</div>
-	</div>
-	<div class="col">
-		<h5>Your trip summary:</h5>
-		<hr>
-		<p>Adult(s) x {{ adults.value }} : ${{ (adults.value * trip$.costadult)|number }}.00<br/>
-		Chid(ren) x {{ child.value }} : ${{ (child.value * trip$.costchild)|number }}.00</p>
-		<p><strong>Total: $CAD {{ ((adults.value * trip$.costadult)*1 +  (child.value * trip$.costchild)*1)|number }}.00</strong></p>
-		<p>Date of trip: {{ tripdate.value | date }}</p>
-		<p>You will meet <a [routerLink]="['/profile', trip$.tattlerdetails.tattlerid]">{{ trip$.tattlerdetails.name }}</a> at  {{ trip$.meetingaddress }} <a [href]="trip$.meetinglocation" target="_blank">(Google maps)</a> by {{ trip$.tripstarttime }}.</p>
 
-		<button [disabled]="!f.valid" class="btn btn-primary" (click)="confirmbooking(trip$.$key, f.value)">Book</button> <small id="submithelpline" class="text-muted">
-      Please fill all required fields to book.
-    </small>
-	</div>
+			<!-- <div class="alert alert-danger" *ngIf="tripdate.touched && tripdate.invalid">
+				<div *ngIf="tripdate.errors.required">Please select a date for the trip.</div>
+			</div> -->
+		</div>
+	</form>
+</div>
+</div>
+<div class="col">
+	<h5>Your trip summary:</h5>
+	<hr>
+	<p>Adult(s) x {{ adults.value }} : ${{ (adults.value * trip$.costadult)|number }}.00<br/>
+	Chid(ren) x {{ child.value }} : ${{ (child.value * trip$.costchild)|number }}.00</p>
+	<p><strong>Total: $CAD {{ ((adults.value * trip$.costadult)*1 +  (child.value * trip$.costchild)*1)|number }}.00</strong></p>
+	<p>Date of trip:   {{ daySelected | date }} <!-- {{ tripdate.value | date }} --></p>
+	<p>You will meet <a [routerLink]="['/profile', trip$.tattlerdetails.tattlerid]">{{ trip$.tattlerdetails.name }}</a> at  {{ trip$.meetingaddress }} <a [href]="trip$.meetinglocation" target="_blank">(Google maps)</a> by {{ trip$.tripstarttime }}.</p>
+
+	<button [disabled]="!f.valid" class="btn btn-primary" (click)="confirmbooking(trip$.$key, f.value)">Book</button> <small id="submithelpline" class="text-muted">
+		Please fill all required fields to book.
+	</small>
+</div>
 </div>
 
 

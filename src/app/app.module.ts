@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { TripService } from './trip.service';
+import { EventSesrvice } from './event.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -30,6 +31,7 @@ import { ManageBookingsComponent } from './admin/manage-bookings/manage-bookings
 import { TripcardComponent } from './tripcard/tripcard.component';
 import { FooterComponent } from './footer/footer.component';
 import { BecomeATattlerComponent } from './become-a-tattler/become-a-tattler.component';
+import { FullCalendarModule } from 'ng-fullcalendar';
 // import { CalendarModule } from 'primeng/calendar';
 // import { CalendarComponent } from './calendar/calendar.component';
 
@@ -55,6 +57,7 @@ import { BecomeATattlerComponent } from './become-a-tattler/become-a-tattler.com
   imports: [
   BrowserModule,
   BrowserAnimationsModule,
+  FullCalendarModule,
   AngularFireModule.initializeApp(environment.firebase),
   AngularFireDatabaseModule,
   AngularFireAuthModule,
@@ -103,7 +106,8 @@ import { BecomeATattlerComponent } from './become-a-tattler/become-a-tattler.com
   AuthGuard,
   AdminAuthGuard,
   UserService,
-  TripService
+  TripService,
+  EventSesrvice
   ],
   bootstrap: [AppComponent]
 })
