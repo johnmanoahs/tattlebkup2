@@ -6,7 +6,7 @@ import { TripService } from './trip.service';
 import { EventSesrvice } from './event.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2'; 
 import { AngularFireDatabaseModule } from 'angularfire2/database'; 
@@ -56,7 +56,7 @@ import { FullCalendarModule } from 'ng-fullcalendar';
   ],
   imports: [
   BrowserModule,
-  BrowserAnimationsModule,
+  // BrowserAnimationsModule,
   FullCalendarModule,
   AngularFireModule.initializeApp(environment.firebase),
   AngularFireDatabaseModule,

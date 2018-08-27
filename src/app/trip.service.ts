@@ -78,6 +78,20 @@ export class TripService {
 		//console.log(trip);
 		// this.db.list('tattlers/' + trip.uid + '/' + 'mybookings').push(trip);
 		// return this.db.list('tattlers/' + trip.trip.tattlerdetails.tattlerid + '/' + 'myadminbookings').push(trip);
+		// alert("trip.tattlerdetails.tattlerid " + trip.trip.tattlerdetails.tattlerid);
+		// alert("trip.tripstartdate " + trip.trip.tripstartdate);
+		//let bookeddate: any[];
+		// let bookeddate.start = trip.trip.tripstartdate;
+		// bookeddate.end = trip.trip.tripstartdate;
+		// bookeddate.rendering = 'background';
+
+		let bookeddate = {
+			start: trip.trip.tripstartdate,
+			end: trip.trip.tripstartdate,
+			rendering: 'background'
+		}
+		alert(bookeddate);
+		this.db.list('tattlers/' + trip.trip.tattlerdetails.tattlerid + '/details/bookeddates').push(bookeddate);
 		return this.db.list('bookings/').push(trip);
 	}
 

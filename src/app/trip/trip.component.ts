@@ -22,10 +22,12 @@ export class TripComponent implements OnInit{
 	trip$;
 	value: Date;
 	daySelected;
-	tattlerBookedDates = [
-							{start: '2018-08-27',end: '2018-08-27',rendering: 'background'},
-							{start: '2018-08-29',end: '2018-08-29',rendering: 'background'}
-						]
+	tattlerBookedDates;
+
+	 // = [
+		// 					{start: '2018-08-27',end: '2018-08-27',rendering: 'background'},
+		// 					{start: '2018-08-29',end: '2018-08-29',rendering: 'background'}
+		// 				]
 
 	constructor(private tripService: TripService, 
 		private route: ActivatedRoute, 
@@ -57,8 +59,21 @@ export class TripComponent implements OnInit{
 		let tripid = this.route.snapshot.paramMap.get('tripid');
 		this.tripService.getTrip(tripid).take(1).subscribe(trip => {
 			this.trip$ = trip
-			console.log(this.trip$)
+			console.log('TRIP : ', this.trip$);
+			this.userService.get(this.trip$.tattlerdetails.uid).subscribe(tattler1 => {
+				this.tattlerBookedDates = tattler1;
+				this.tattlerBookedDates = this.tattlerBookedDates.details.bookeddates;
+				console.log('bookeddates : ', this.tattlerBookedDates);
+
+			});
+
+			//this.userService.get(this.trip$.tattlerdetails.uid).subscribe()
 		});
+
+		//this is to retrieve the bookeddates for the tattler. This needs to be revisited as having a 
+		//separate subscription to userService for just bookeddates is not very efficient
+
+
 
 	}
 
