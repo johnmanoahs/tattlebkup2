@@ -44,10 +44,10 @@
 
 				<div *ngIf="calendarOptions">
 					<ng-fullcalendar 
-					ngModel
+					
 					name="ucCalendar"
 					id="ucCalendar"
-					#ucCalendar="ngModel"
+					
 					[options]="calendarOptions"  
 					(dayClick)="dayClick($event.detail)">
 					</ng-fullcalendar>

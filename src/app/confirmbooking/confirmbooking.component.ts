@@ -108,7 +108,7 @@ export class ConfirmbookingComponent implements OnInit, AfterViewChecked  {
     console.log('in book', this.trip);
     this.tripService.createBooking(this.trip).then(response => {
       console.log(response);
-      //this.router.navigate(['/my/trips']);
+      this.router.navigate(['/my/trips']);
     });
 
   }

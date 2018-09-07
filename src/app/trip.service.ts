@@ -86,11 +86,11 @@ export class TripService {
 		// bookeddate.rendering = 'background';
 
 		let bookeddate = {
-			start: trip.trip.tripstartdate,
-			end: trip.trip.tripstartdate,
+			start: trip.tripdate,
+			end: trip.tripdate,
 			rendering: 'background'
 		}
-		alert(bookeddate);
+		//alert(bookeddate);
 		this.db.list('tattlers/' + trip.trip.tattlerdetails.tattlerid + '/details/bookeddates').push(bookeddate);
 		return this.db.list('bookings/').push(trip);
 	}
@@ -117,7 +117,7 @@ export class TripService {
 
 	setStatusbooking(status, bookingid){
 		let update = {status : status}
-		alert(bookingid);
+		//alert(bookingid);
 		return this.db.object('bookings/' + bookingid).update(update);
 	}
 
