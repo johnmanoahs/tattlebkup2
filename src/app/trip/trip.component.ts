@@ -71,6 +71,7 @@ export class TripComponent implements OnInit{
 				for(let i in this.tattlerBookedDates){
 					console.log(this.tattlerBookedDates[i].start);
 					let tripdate = new Date(this.tattlerBookedDates[i].start);
+					tripdate = this.addDays(tripdate, -1);
 					console.log(tripdate.toISOString());
 					//let tripdatet = tripdate.getFullYear() + "-" + tripdate.getMonth() + "-" + tripdate.getUTCDate();
 					//console.log("TRIPDATE:::", tripdatet);
@@ -117,7 +118,7 @@ export class TripComponent implements OnInit{
 
 	dayClick(model: any){
 		console.log(model.date._d, model, this);
-		this.daySelected = this.addDays(model.date._d, 0); //For some reason the dates show one day less. Applying this fix.
+		this.daySelected = this.addDays(model.date._d, 1); //For some reason the dates show one day less. Applying this fix.
 		console.log("TIMESTAMP:::", Date.parse(this.daySelected));
 	}
 
