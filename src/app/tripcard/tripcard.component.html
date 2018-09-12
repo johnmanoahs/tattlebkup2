@@ -19,15 +19,15 @@
 							</div>
 							<p class="card-text desc">Hosted by <a [routerLink]="['/profile', trip.tattlerdetails.tattlerid]">{{ trip.tattlerdetails.name }}</a></p>
 
-							<p class="description">{{ trip.description }}</p>
+							<p class="description">{{ trip.description | slice:0:80 }}...<a [routerLink]="['/trip', trip.tripname, trip.$key]">read more</a></p>
 							
 							<div class="d-flex justify-content-between align-items-center">
 								<div>C${{ trip.costadult }}.00</div>
 								<small class="text-muted">{{trip.triplength}} Hours</small>
 							</div>
 						</div>
-						<div class="card-footer">
-							<button *ngIf="showBook" [routerLink]="['/trip', trip.tripname, trip.$key]" class="btn btn-primary mr-auto">Book</button>
+						<div class="card-footer text-right">
+							<button *ngIf="showBook" [routerLink]="['/trip', trip.tripname, trip.$key]" class="btn btn-primary">Book</button>
 						</div>
 					</div>
 
